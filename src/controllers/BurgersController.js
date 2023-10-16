@@ -7,6 +7,17 @@ export class BurgersController extends BaseController {
     this.router
       .get('', this.getMenu)
       .post('', this.createMenuItem)
+      .delete('/:burgerId', this.removeBurger)
+  }
+  async removeBurger(req, res, next) {
+    try {
+      const burgerId = req.params.burgerId
+      await burgerService.removeBurger(burgerId)
+      res.send('burger decimated')
+    } catch (error) {
+      next(error)
+
+    }
   }
   async createMenuItem(req, res, next) {
     try {
